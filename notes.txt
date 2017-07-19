@@ -1,0 +1,3 @@
+- W: --force-yes is deprecated, use one of the options starting with --allow instead.
+- rsyslog is downgraded to 8.16
+- mmjson-parse is removed

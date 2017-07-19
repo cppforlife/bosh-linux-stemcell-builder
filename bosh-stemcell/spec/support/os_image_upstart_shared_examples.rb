@@ -1,7 +1,5 @@
 shared_examples_for 'an upstart-based OS image' do
-
   context 'installed by rsyslog_config' do
-
     RSYSLOG_EXECUTABLE = '/usr/sbin/rsyslogd'
 
     describe file('/etc/init/rsyslog.conf') do

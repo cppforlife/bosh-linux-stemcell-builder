@@ -46,9 +46,9 @@ function pkg_mgr {
 
   if [ "${os_type}" == 'ubuntu' ]
   then
-    run_in_chroot $chroot "apt-get update"
-    run_in_chroot $chroot "apt-get -f -y --force-yes --no-install-recommends $*"
-    run_in_chroot $chroot "apt-get clean"
+    run_in_chroot $chroot "DEBIAN_FRONTEND=noninteractive apt-get update"
+    run_in_chroot $chroot "DEBIAN_FRONTEND=noninteractive apt-get -f -y --force-yes --no-install-recommends $*"
+    run_in_chroot $chroot "DEBIAN_FRONTEND=noninteractive apt-get clean"
   elif [ "${os_type}" == 'centos' -o "${os_type}" == 'rhel' -o "${os_type}" == 'photonos' ]
   then
     run_in_chroot $chroot "yum --verbose --assumeyes $*"
