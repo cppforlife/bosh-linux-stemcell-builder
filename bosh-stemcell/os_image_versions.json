@@ -1,5 +1,6 @@
 {
   "bosh-centos-6-os-image.tgz": "kkUYP.4sM_hdsn3Sfcr6ksahFpPgb2D8",
   "bosh-centos-7-os-image.tgz": "qWEsvsL_cKNsR_P4Ou9lY1bUngcUbX2j",
-  "bosh-ubuntu-trusty-os-image.tgz": "8zApY4ctWhWag.8ewavNINnJli5NmLeH"
+  "bosh-ubuntu-trusty-os-image.tgz": "8zApY4ctWhWag.8ewavNINnJli5NmLeH",
+  "bosh-ubuntu-xenial-os-image.tgz": "l6Kqoc5iaxY14O1S7oY1XIgfneyw97IO"
 }
