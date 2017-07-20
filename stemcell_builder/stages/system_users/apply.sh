@@ -4,6 +4,7 @@ set -e
 
 base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
+source $base_dir/lib/prelude_bosh.bash
 
 if [ "${stemcell_operating_system_version}" != "xenial" ]; then
 	run_in_chroot $chroot "
