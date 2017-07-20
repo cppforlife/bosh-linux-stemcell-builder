@@ -25,4 +25,3 @@ sudo --preserve-env --set-home --user ubuntu -- /bin/bash --login -i <<SUDO
     bundle install --local
     bundle exec rake stemcell:build_os_image[$OPERATING_SYSTEM_NAME,$OPERATING_SYSTEM_VERSION,$OS_IMAGE]
 SUDO
-# bundle exec rake stemcell:build_os_image[ubuntu,xenial,/tmp/build/80754af9/os-image/ubuntu_base_image.tgz] resume_from=rsyslog_config
