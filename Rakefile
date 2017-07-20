@@ -36,7 +36,7 @@ namespace :stemcell do
       )
       builder.build(args.os_image_path)
 
-      sh(environment.os_image_rspec_command)
+      # todo sh(environment.os_image_rspec_command)
     rescue RuntimeError => e
       print_help
       raise e

@@ -2,3 +2,257 @@
 - rsyslog is downgraded to 8.16
 - mmjson-parse is removed
 - system_users/apply.sh
+
+# os image failures
+
+mostly config files
+
+Failures:
+
+  1) Ubuntu 16.04 OS image behaves like a Linux kernel 3.x based OS image installed by bosh_sysctl #<ShelloutTypes::File:0x005578cbed3890> should be file
+     Failure/Error: it { should be_file }
+       expected `#<ShelloutTypes::File:0x005578cbed3890 @path="/etc/sysctl.d/60-bosh-sysctl-neigh-fix.conf", @chroot=#<ShelloutTypes::Chroot:0x005578cbed38b8>>.file?` to return true, got false
+     Shared Example Group: "a Linux kernel 3.x based OS image" called from ./spec/os_image/ubuntu_xenial_spec.rb:8
+     # ./spec/support/os_image_linux_kernel_3x_shared_examples.rb:85:in `block (4 levels) in <top (required)>'
+
+  2) Ubuntu 16.04 OS image installed by base_debootstrap #<ShelloutTypes::Package:0x005578cc021300> should be installed
+     Failure/Error: it { should be_installed }
+       expected `#<ShelloutTypes::Package:0x005578cc021300 @package="module-init-tools", @chroot_cmd_runner=#<ShelloutTypes::Chroot:0x005578cc021328>>.installed?` to return true, got false
+     # ./spec/os_image/ubuntu_xenial_spec.rb:65:in `block (5 levels) in <top (required)>'
+
+  3) Ubuntu 16.04 OS image installed by base_debootstrap #<ShelloutTypes::Package:0x005578cc03b9d0> should be installed
+     Failure/Error: it { should be_installed }
+       expected `#<ShelloutTypes::Package:0x005578cc03b9d0 @package="ntpdate", @chroot_cmd_runner=#<ShelloutTypes::Chroot:0x005578cc03b9f8>>.installed?` to return true, got false
+     # ./spec/os_image/ubuntu_xenial_spec.rb:65:in `block (5 levels) in <top (required)>'
+
+  4) Ubuntu 16.04 OS image installed by base_ubuntu_packages #<ShelloutTypes::Package:0x005578cc12bbb0> should be installed
+     Failure/Error: it { should be_installed }
+       expected `#<ShelloutTypes::Package:0x005578cc12bbb0 @package="libgcrypt11-dev", @chroot_cmd_runner=#<ShelloutTypes::Chroot:0x005578cc12bbd8>>.installed?` to return true, got false
+     # ./spec/os_image/ubuntu_xenial_spec.rb:181:in `block (5 levels) in <top (required)>'
+
+  5) Ubuntu 16.04 OS image allowed user accounts #<ShelloutTypes::File:0x005578cc4bf1f0> content should eql "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin\nuucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\nproxy:x:13:13:proxy:/bin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nbackup:x:34:34:backup:/var/backups:/usr/sbin/nologin\nlist:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\nirc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin\ngnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin\nnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\nsyslog:x:101:104::/home/syslog:/bin/false\nsshd:x:102:65534::/var/run/sshd:/usr/sbin/nologin\nstatd:x:103:65534::/var/lib/nfs:/bin/false\nvcap:x:1000:1000:BOSH System User:/home/vcap:/bin/bash\n"
+     Failure/Error:
+             its(:content) { should eql(<<HERE) }
+       root:x:0:0:root:/root:/bin/bash
+       daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+       bin:x:2:2:bin:/bin:/usr/sbin/nologin
+       sys:x:3:3:sys:/dev:/usr/sbin/nologin
+       sync:x:4:65534:sync:/bin:/bin/sync
+       games:x:5:60:games:/usr/games:/usr/sbin/nologin
+       man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+       lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+       mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+
+       expected: "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin\nuucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\nproxy:x:13:13:proxy:/bin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nbackup:x:34:34:backup:/var/backups:/usr/sbin/nologin\nlist:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\nirc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin\ngnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin\nnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\nsyslog:x:101:104::/home/syslog:/bin/false\nsshd:x:102:65534::/var/run/sshd:/usr/sbin/nologin\nstatd:x:103:65534::/var/lib/nfs:/bin/false\nvcap:x:1000:1000:BOSH System User:/home/vcap:/bin/bash\n"
+            got: "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin\nuucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\nproxy:x:13:13:proxy:/bin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nbackup:x:34:34:backup:/var/backups:/usr/sbin/nologin\nlist:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\nirc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin\ngnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin\nnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\nsystemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false\nsystemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false\nsystemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false\nsystemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false\nsyslog:x:104:108::/home/syslog:/bin/false\n_apt:x:105:65534::/nonexistent:/bin/false\nstatd:x:106:65534::/var/lib/nfs:/bin/false\nsshd:x:107:65534::/var/run/sshd:/usr/sbin/nologin\nvcap:x:1000:1000:BOSH System User:/home/vcap:/bin/bash\n"
+
+       (compared using eql?)
+
+       Diff:
+       @@ -16,8 +16,13 @@
+        irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+        gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+        nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+       -syslog:x:101:104::/home/syslog:/bin/false
+       -sshd:x:102:65534::/var/run/sshd:/usr/sbin/nologin
+       -statd:x:103:65534::/var/lib/nfs:/bin/false
+       +systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+       +systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+       +systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+       +systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+       +syslog:x:104:108::/home/syslog:/bin/false
+       +_apt:x:105:65534::/nonexistent:/bin/false
+       +statd:x:106:65534::/var/lib/nfs:/bin/false
+       +sshd:x:107:65534::/var/run/sshd:/usr/sbin/nologin
+        vcap:x:1000:1000:BOSH System User:/home/vcap:/bin/bash
+
+     # ./spec/os_image/ubuntu_xenial_spec.rb:470:in `block (4 levels) in <top (required)>'
+
+  6) Ubuntu 16.04 OS image allowed user accounts #<ShelloutTypes::File:0x005578cc4cb8d8> content should match /\Aroot:(.+):(\d{5}):0:99999:7:::
+daemon:\*:(\d{5}):0:99999:7:::
+bin:\*:(\d{5}):0:99999:7:::
+sys:\*:(\d{5}):0:99999:7:::
+sync:\*:(\d{5}):0:99999:7:::
+games:\*:(\d{5}):0:99999:7:::
+man:\*:(\d{5}):0:99999:7:::
+lp:\*:(\d{5}):0:99999:7:::
+mail:\*:(\d{5}):0:99999:7:::
+news:\*:(\d{5}):0:99999:7:::
+uucp:\*:(\d{5}):0:99999:7:::
+proxy:\*:(\d{5}):0:99999:7:::
+www-data:\*:(\d{5}):0:99999:7:::
+backup:\*:(\d{5}):0:99999:7:::
+list:\*:(\d{5}):0:99999:7:::
+irc:\*:(\d{5}):0:99999:7:::
+gnats:\*:(\d{5}):0:99999:7:::
+nobody:\*:(\d{5}):0:99999:7:::
+syslog:\*:(\d{5}):0:99999:7:::
+sshd:\*:(\d{5}):0:99999:7:::
+statd:\*:(\d{5}):0:99999:7:::
+vcap:(.+):(\d{5}):1:99999:7:::\Z
+/i
+     Failure/Error: its(:content) { should match(shadow_match) }
+
+       expected "root:$6$vMdDEF5M$xy/FXrakoCkoEWPVsMdfvH0I20Nh0LnRgjwI5T3VA09v365ErEAa4LjdMOH0rp6MHoQ83Z2cS7aV0Vv9HP/ZX1:17367:0:99999:7:::\ndaemon:*:17367:0:99999:7:::\nbin:*:17367:0:99999:7:::\nsys:*:17367:0:99999:7:::\nsync:*:17367:0:99999:7:::\ngames:*:17367:0:99999:7:::\nman:*:17367:0:99999:7:::\nlp:*:17367:0:99999:7:::\nmail:*:17367:0:99999:7:::\nnews:*:17367:0:99999:7:::\nuucp:*:17367:0:99999:7:::\nproxy:*:17367:0:99999:7:::\nwww-data:*:17367:0:99999:7:::\nbackup:*:17367:0:99999:7:::\nlist:*:17367:0:99999:7:::\nirc:*:17367:0:99999:7:::\ngnats:*:17367:0:99999:7:::\nnobody:*:17367:0:99999:7:::\nsystemd-timesync:*:17367:0:99999:7:::\nsystemd-network:*:17367:0:99999:7:::\nsystemd-resolve:*:17367:0:99999:7:::\nsystemd-bus-proxy:*:17367:0:99999:7:::\nsyslog:*:17367:0:99999:7:::\n_apt:*:17367:0:99999:7:::\nstatd:*:17367:0:99999:7:::\nsshd:*:17367:0:99999:7:::\nvcap:$6$hPq4KVoR$Nj1rZff5FRcmtEf00DpR6.xYw5ETg9p8HEIpCV4R5AND1podik/r5HIV1O7qvlMM4tIHik1JjpopyvQ6cEJmn1:17367:1:99999:7:::\n" to match /\Aroot:(.+):(\d{5}):0:99999:7:::
+       daemon:\*:(\d{5}):0:99999:7:::
+       bin:\*:(\d{5}):0:99999:7:::
+       sys:\*:(\d{5}):0:99999:7:::
+       sync:\*:(\d{5}):0:99999:7:::
+       games:\*:(\d{5}):0:99999:7:::
+       man:\*:(\d{5}):0:99999:7:::
+       lp:\*:(\d{5}):0:99999:7:::
+       mail:\*:(\d{5}):0:99999:7:::
+       news:\*:(\d{5}):0:99999:7:::
+       uucp:\*:(\d{5}):0:99999:7:::
+       proxy:\*:(\d{5}):0:99999:7:::
+       www-data:\*:(\d{5}):0:99999:7:::
+       backup:\*:(\d{5}):0:99999:7:::
+       list:\*:(\d{5}):0:99999:7:::
+       irc:\*:(\d{5}):0:99999:7:::
+       gnats:\*:(\d{5}):0:99999:7:::
+       nobody:\*:(\d{5}):0:99999:7:::
+       syslog:\*:(\d{5}):0:99999:7:::
+       sshd:\*:(\d{5}):0:99999:7:::
+       statd:\*:(\d{5}):0:99999:7:::
+       vcap:(.+):(\d{5}):1:99999:7:::\Z
+       /i
+       Diff:
+       @@ -1,24 +1,28 @@
+       -/\Aroot:(.+):(\d{5}):0:99999:7:::
+       -daemon:\*:(\d{5}):0:99999:7:::
+       -bin:\*:(\d{5}):0:99999:7:::
+       -sys:\*:(\d{5}):0:99999:7:::
+       -sync:\*:(\d{5}):0:99999:7:::
+       -games:\*:(\d{5}):0:99999:7:::
+       -man:\*:(\d{5}):0:99999:7:::
+       -lp:\*:(\d{5}):0:99999:7:::
+       -mail:\*:(\d{5}):0:99999:7:::
+       -news:\*:(\d{5}):0:99999:7:::
+       -uucp:\*:(\d{5}):0:99999:7:::
+       -proxy:\*:(\d{5}):0:99999:7:::
+       -www-data:\*:(\d{5}):0:99999:7:::
+       -backup:\*:(\d{5}):0:99999:7:::
+       -list:\*:(\d{5}):0:99999:7:::
+       -irc:\*:(\d{5}):0:99999:7:::
+       -gnats:\*:(\d{5}):0:99999:7:::
+       -nobody:\*:(\d{5}):0:99999:7:::
+       -syslog:\*:(\d{5}):0:99999:7:::
+       -sshd:\*:(\d{5}):0:99999:7:::
+       -statd:\*:(\d{5}):0:99999:7:::
+       -vcap:(.+):(\d{5}):1:99999:7:::\Z
+       -/i
+       +root:$6$vMdDEF5M$xy/FXrakoCkoEWPVsMdfvH0I20Nh0LnRgjwI5T3VA09v365ErEAa4LjdMOH0rp6MHoQ83Z2cS7aV0Vv9HP/ZX1:17367:0:99999:7:::
+       +daemon:*:17367:0:99999:7:::
+       +bin:*:17367:0:99999:7:::
+       +sys:*:17367:0:99999:7:::
+       +sync:*:17367:0:99999:7:::
+       +games:*:17367:0:99999:7:::
+       +man:*:17367:0:99999:7:::
+       +lp:*:17367:0:99999:7:::
+       +mail:*:17367:0:99999:7:::
+       +news:*:17367:0:99999:7:::
+       +uucp:*:17367:0:99999:7:::
+       +proxy:*:17367:0:99999:7:::
+       +www-data:*:17367:0:99999:7:::
+       +backup:*:17367:0:99999:7:::
+       +list:*:17367:0:99999:7:::
+       +irc:*:17367:0:99999:7:::
+       +gnats:*:17367:0:99999:7:::
+       +nobody:*:17367:0:99999:7:::
+       +systemd-timesync:*:17367:0:99999:7:::
+       +systemd-network:*:17367:0:99999:7:::
+       +systemd-resolve:*:17367:0:99999:7:::
+       +systemd-bus-proxy:*:17367:0:99999:7:::
+       +syslog:*:17367:0:99999:7:::
+       +_apt:*:17367:0:99999:7:::
+       +statd:*:17367:0:99999:7:::
+       +sshd:*:17367:0:99999:7:::
+       +vcap:$6$hPq4KVoR$Nj1rZff5FRcmtEf00DpR6.xYw5ETg9p8HEIpCV4R5AND1podik/r5HIV1O7qvlMM4tIHik1JjpopyvQ6cEJmn1:17367:1:99999:7:::
+
+     # ./spec/os_image/ubuntu_xenial_spec.rb:522:in `block (4 levels) in <top (required)>'
+
+  7) Ubuntu 16.04 OS image allowed user accounts #<ShelloutTypes::File:0x005578cacc9398> content should eql "root:x:0:\ndaemon:x:1:\nbin:x:2:\nsys:x:3:\nadm:x:4:vcap\ntty:x:5:\ndisk:x:6:\nlp:x:7:\nmail:x:8:\nnews:x:9:\nuucp:x:10:\nman:x:12:\nproxy:x:13:\nkmem:x:15:\ndialout:x:20:vcap\nfax:x:21:\nvoice:x:22:\ncdrom:x:24:vcap\nfloppy:x:25:vcap\ntape:x:26:\nsudo:x:27:vcap\naudio:x:29:vcap\ndip:x:30:vcap\nwww-data:x:33:\nbackup:x:34:\noperator:x:37:\nlist:x:38:\nirc:x:39:\nsrc:x:40:\ngnats:x:41:\nshadow:x:42:\nutmp:x:43:\nvideo:x:44:vcap\nsasl:x:45:\nplugdev:x:46:vcap\nstaff:x:50:\ngames:x:60:\nusers:x:100:\nnogroup:x:65534:\nnetdev:x:102:\ncrontab:x:103:\nsyslog:x:104:\nssh:x:105:\nadmin:x:999:vcap\nvcap:x:1000:syslog\nbosh_sshers:x:1001:vcap\nbosh_sudoers:x:1002:\n"
+     Failure/Error:
+             its(:content) { should eql(<<HERE) }
+       root:x:0:
+       daemon:x:1:
+       bin:x:2:
+       sys:x:3:
+       adm:x:4:vcap
+       tty:x:5:
+       disk:x:6:
+       lp:x:7:
+       mail:x:8:
+
+       expected: "root:x:0:\ndaemon:x:1:\nbin:x:2:\nsys:x:3:\nadm:x:4:vcap\ntty:x:5:\ndisk:x:6:\nlp:x:7:\nmail:x:8:\nnews:x:9:\nuucp:x:10:\nman:x:12:\nproxy:x:13:\nkmem:x:15:\ndialout:x:20:vcap\nfax:x:21:\nvoice:x:22:\ncdrom:x:24:vcap\nfloppy:x:25:vcap\ntape:x:26:\nsudo:x:27:vcap\naudio:x:29:vcap\ndip:x:30:vcap\nwww-data:x:33:\nbackup:x:34:\noperator:x:37:\nlist:x:38:\nirc:x:39:\nsrc:x:40:\ngnats:x:41:\nshadow:x:42:\nutmp:x:43:\nvideo:x:44:vcap\nsasl:x:45:\nplugdev:x:46:vcap\nstaff:x:50:\ngames:x:60:\nusers:x:100:\nnogroup:x:65534:\nnetdev:x:102:\ncrontab:x:103:\nsyslog:x:104:\nssh:x:105:\nadmin:x:999:vcap\nvcap:x:1000:syslog\nbosh_sshers:x:1001:vcap\nbosh_sudoers:x:1002:\n"
+            got: "root:x:0:\ndaemon:x:1:\nbin:x:2:\nsys:x:3:\nadm:x:4:vcap\ntty:x:5:\ndisk:x:6:\nlp:x:7:\nmail:x:8:\nnews:x:9:\nuucp:x:10:\nman:x:12:\nproxy:x:13:\nkmem:x:15:\ndialout:x:20:vcap\nfax:x:21:\nvoice:x:22:\ncdrom:x:24:vcap\nfloppy:x:25:vcap\ntape:x:26:\nsudo:x:27:vcap\naudio:x:29:vcap\ndip:x:30:vcap\nwww-data:x:33:\nbackup:x:34:\noperator:x:37:\nlist:x:38:\nirc:x:39:\nsrc:x:40:\ngnats:x:41:\nshadow:x:42:\nutmp:x:43:\nvideo:x:44:vcap\nsasl:x:45:\nplugdev:x:46:vcap\nstaff:x:50:\ngames:x:60:\nusers:x:100:\nnogroup:x:65534:\nsystemd-journal:x:101:\nsystemd-timesync:x:102:\nsystemd-network:x:103:\nsystemd-resolve:x:104:\nsystemd-bus-proxy:x:105:\ninput:x:106:\ncrontab:x:107:\nsyslog:x:108:\nnetdev:x:109:\nssh:x:110:\nadmin:x:999:vcap\nvcap:x:1000:syslog\nbosh_sshers:x:1001:vcap\nbosh_sudoers:x:1002:\n"
+
+       (compared using eql?)
+
+       Diff:
+       @@ -37,10 +37,16 @@
+        games:x:60:
+        users:x:100:
+        nogroup:x:65534:
+       -netdev:x:102:
+       -crontab:x:103:
+       -syslog:x:104:
+       -ssh:x:105:
+       +systemd-journal:x:101:
+       +systemd-timesync:x:102:
+       +systemd-network:x:103:
+       +systemd-resolve:x:104:
+       +systemd-bus-proxy:x:105:
+       +input:x:106:
+       +crontab:x:107:
+       +syslog:x:108:
+       +netdev:x:109:
+       +ssh:x:110:
+        admin:x:999:vcap
+        vcap:x:1000:syslog
+        bosh_sshers:x:1001:vcap
+
+     # ./spec/os_image/ubuntu_xenial_spec.rb:526:in `block (4 levels) in <top (required)>'
+
+  8) Ubuntu 16.04 OS image allowed user accounts #<ShelloutTypes::File:0x005578cc4d41b8> content should eql "root:*::\ndaemon:*::\nbin:*::\nsys:*::\nadm:*::vcap\ntty:*::\ndisk:*::\nlp:*::\nmail:*::\nnews:*::\nuucp:*::\nman:*::\nproxy:*::\nkmem:*::\ndialout:*::vcap\nfax:*::\nvoice:*::\ncdrom:*::vcap\nfloppy:*::vcap\ntape:*::\nsudo:*::vcap\naudio:*::vcap\ndip:*::vcap\nwww-data:*::\nbackup:*::\noperator:*::\nlist:*::\nirc:*::\nsrc:*::\ngnats:*::\nshadow:*::\nutmp:*::\nvideo:*::vcap\nsasl:*::\nplugdev:*::vcap\nstaff:*::\ngames:*::\nusers:*::\nnogroup:*::\nnetdev:!::\ncrontab:!::\nsyslog:!::\nssh:!::\nadmin:!::vcap\nvcap:!::syslog\nbosh_sshers:!::vcap\nbosh_sudoers:!::\n"
+     Failure/Error:
+             its(:content) { should eql(<<HERE) }
+       root:*::
+       daemon:*::
+       bin:*::
+       sys:*::
+       adm:*::vcap
+       tty:*::
+       disk:*::
+       lp:*::
+       mail:*::
+
+       expected: "root:*::\ndaemon:*::\nbin:*::\nsys:*::\nadm:*::vcap\ntty:*::\ndisk:*::\nlp:*::\nmail:*::\nnews:*::\nuucp:*::\nman:*::\nproxy:*::\nkmem:*::\ndialout:*::vcap\nfax:*::\nvoice:*::\ncdrom:*::vcap\nfloppy:*::vcap\ntape:*::\nsudo:*::vcap\naudio:*::vcap\ndip:*::vcap\nwww-data:*::\nbackup:*::\noperator:*::\nlist:*::\nirc:*::\nsrc:*::\ngnats:*::\nshadow:*::\nutmp:*::\nvideo:*::vcap\nsasl:*::\nplugdev:*::vcap\nstaff:*::\ngames:*::\nusers:*::\nnogroup:*::\nnetdev:!::\ncrontab:!::\nsyslog:!::\nssh:!::\nadmin:!::vcap\nvcap:!::syslog\nbosh_sshers:!::vcap\nbosh_sudoers:!::\n"
+            got: "root:*::\ndaemon:*::\nbin:*::\nsys:*::\nadm:*::vcap\ntty:*::\ndisk:*::\nlp:*::\nmail:*::\nnews:*::\nuucp:*::\nman:*::\nproxy:*::\nkmem:*::\ndialout:*::vcap\nfax:*::\nvoice:*::\ncdrom:*::vcap\nfloppy:*::vcap\ntape:*::\nsudo:*::vcap\naudio:*::vcap\ndip:*::vcap\nwww-data:*::\nbackup:*::\noperator:*::\nlist:*::\nirc:*::\nsrc:*::\ngnats:*::\nshadow:*::\nutmp:*::\nvideo:*::vcap\nsasl:*::\nplugdev:*::vcap\nstaff:*::\ngames:*::\nusers:*::\nnogroup:*::\nsystemd-journal:!::\nsystemd-timesync:!::\nsystemd-network:!::\nsystemd-resolve:!::\nsystemd-bus-proxy:!::\ninput:!::\ncrontab:!::\nsyslog:!::\nnetdev:!::\nssh:!::\nadmin:!::vcap\nvcap:!::syslog\nbosh_sshers:!::vcap\nbosh_sudoers:!::\n"
+
+       (compared using eql?)
+
+       Diff:
+
+       @@ -37,9 +37,15 @@
+        games:*::
+        users:*::
+        nogroup:*::
+       -netdev:!::
+       +systemd-journal:!::
+       +systemd-timesync:!::
+       +systemd-network:!::
+       +systemd-resolve:!::
+       +systemd-bus-proxy:!::
+       +input:!::
+        crontab:!::
+        syslog:!::
+       +netdev:!::
+        ssh:!::
+        admin:!::vcap
+        vcap:!::syslog
+
+     # ./spec/os_image/ubuntu_xenial_spec.rb:578:in `block (4 levels) in <top (required)>'
+
+Finished in 22.63 seconds (files took 0.24323 seconds to load)
+480 examples, 8 failures
