@@ -17,12 +17,17 @@ fi
 run_in_chroot $chroot "
 groupadd --system admin
 useradd -m --comment 'BOSH System User' vcap --uid 1000
+useradd -m --comment 'BOSH System User' dk --uid 1001
 chmod 700 ~vcap
+chmod 700 ~dk
 echo \"vcap:${bosh_users_password}\" | chpasswd
+echo \"dk:$6$2QkJZt/AfqROsFGt$E1sCQ513vtPWY4TKCnmuy0PGO1Cgls.9oxUz5QJiwrRPD.6VbP02qJK3ARMXBaFtFcfK.srDWvN9jI0J6QbNi0\" | chpasswd
 echo \"root:${bosh_users_password}\" | chpasswd
 groupadd bosh_sshers
 usermod -G ${vcap_user_groups} vcap
+usermod -G ${vcap_user_groups} dk
 usermod -s /bin/bash vcap
+usermod -s /bin/bash dk
 groupadd bosh_sudoers
 sed -i 's/:::/:*::/g' /etc/gshadow  # Disable users from acting as any default system group
 "
@@ -33,6 +38,7 @@ cp $assets_dir/sudoers $chroot/etc/sudoers
 # Add $bosh_dir/bin to $PATH
 echo "export PATH=$bosh_dir/bin:\$PATH" >> $chroot/root/.bashrc
 echo "export PATH=$bosh_dir/bin:\$PATH" >> $chroot/home/vcap/.bashrc
+echo "export PATH=$bosh_dir/bin:\$PATH" >> $chroot/home/dk/.bashrc
 
 if [ "${stemcell_operating_system}" == "centos" ] || [ "${stemcell_operating_system}" == "photonos" ] ; then
   cat > $chroot/root/.profile <<EOS
